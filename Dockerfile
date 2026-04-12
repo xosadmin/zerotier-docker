@@ -35,6 +35,9 @@ RUN apk add --no-cache --purge --clean-protected libc6-compat libstdc++ iptables
   && ln -s /usr/sbin/zerotier-one /usr/sbin/zerotier-cli \
   && rm -rf /var/cache/apk/*
 
+RUN echo "net.ipv4.ip_forward = 1" >> /etc/sysctl.d/00-defaults.conf && \
+    echo "net.ipv6.conf.all.forwarding = 1" >> /etc/sysctl.d/00-defaults.conf
+
 EXPOSE 9993/udp
 
 ENTRYPOINT ["entrypoint.sh"]
